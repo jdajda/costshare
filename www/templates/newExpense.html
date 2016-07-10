@@ -1,0 +1,30 @@
+<ion-view title="New expense" id="page5" class=" ">
+    <ion-content padding="true" class="has-header">
+        <form id="newExpense-form" class="list ">
+            <label class="item item-select " >
+                <span class="input-label">Who</span>
+                <select ng-model="person">
+                    <option></option>
+                    <option>Renia</option>
+                    <option>Aga</option>
+                </select>
+            </label>
+            <label class="item item-input item-stacked-label " >
+                <span class="input-label">How much</span>
+                <input type="number" placeholder="" ng-model="sum">
+            </label>
+            <label class="item item-input item-stacked-label ">
+                <span class="input-label">For what</span>
+                <input type="text" placeholder="" ng-model="description">
+            </label>
+            <label class="item item-select ">
+                <span class="input-label">Currency</span>
+                <select ng-model="currency">
+                    <option>Złoty</option>
+                    <option>Euro</option>
+                </select>
+            </label>
+        </form>
+        <button class=" button button-positive button-block" ng-click="addExpense(person, sum, description, currency)">Save</button>
+    </ion-content>
+</ion-view>

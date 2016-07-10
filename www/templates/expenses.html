@@ -1,0 +1,15 @@
+<ion-view title="Expenses" id="expenses" class=" ">
+    <ion-content padding="true" class="has-header">
+        <div id="expenses-button-bar2" class=" button-bar ">
+            <a ui-sref="tabsController.newExpense" id="expenses-button4" class=" button button-positive  button-block icon-left ion-android-add-circle ">Add</a>
+            <button id="expenses-button6" class=" button button-stable  button-block icon-left ion-ios-list-outline ">Sort</button>
+        </div>
+        <ion-list id="expenses-list" class=" ">
+            <ion-item ng-repeat="expense in expenses" class="item-avatar item-icon-right  " id="expenses-list-item5">
+                <h2>{{expense.person}} - {{expense.sum}} {{expense.currency}}</h2>
+                <p style="white-space:normal;">{{expense.description}}</p>
+                <i class="icon ion-ios-person"></i>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
