@@ -1,35 +1,27 @@
 "use strict";
 
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.services' is found in services.js
-// 'starter.controllers' is found in controllers.js
 angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ngStorage', 'ngCordova'])
 
-  // create a new factory
-  .factory('StorageService', function ($localStorage) {
-    $localStorage = $localStorage.$default({
-      expenses: []
-    });
+  // .factory('StorageService', function ($localStorage) {
+  //   $localStorage = $localStorage.$default({
+  //     expenses: []
+  //   });
 
-    var _getAll = function () {
-      return $localStorage.expenses;
-    };
-    var _add = function (expense) {
-      $localStorage.expenses.push(expense);
-    }
-    var _remove = function (expense) {
-      $localStorage.expenses.splice($localStorage.expenses.indexOf(expense), 1);
-    }
-    return {
-      getAll: _getAll,
-      add: _add,
-      remove: _remove
-    };
-  })
+  //   var _getAll = function () {
+  //     return $localStorage.expenses;
+  //   };
+  //   var _add = function (expense) {
+  //     $localStorage.expenses.push(expense);
+  //   }
+  //   var _remove = function (expense) {
+  //     $localStorage.expenses.splice($localStorage.expenses.indexOf(expense), 1);
+  //   }
+  //   return {
+  //     getAll: _getAll,
+  //     add: _add,
+  //     remove: _remove
+  //   };
+  // })
 
   .run(function ($ionicPlatform, $cordovaSQLite, $rootScope) {
     $ionicPlatform.ready(function () {

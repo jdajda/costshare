@@ -4,52 +4,53 @@ angular.module('app.routes', [])
 
   .config(function ($stateProvider, $urlRouterProvider) {
 
-    // Ionic uses AngularUI Router which uses the concept of states
-    // Learn more here: https://github.com/angular-ui/ui-router
-    // Set up the various states which the app can be in.
-    // Each state's controller can be found in controllers.js
     $stateProvider
-      // .state('app', {
-      //   url: "/app",
-      //   abstract: true,
-      //   templateUrl: "templates/menu.html",
-      //   controller: 'AppCtrl'
-      // })
-      .state('tabsController.expenses', {
+      .state('app', {
+        url: "/app",
+        abstract: true,
+        templateUrl: "templates/menu.html",
+        controller: 'AppCtrl'
+      })
+
+      .state('app.expenses', {
         url: '/expenses',
         views: {
-          'tab2': {
+          'tab-expense': {
             templateUrl: 'templates/expenses.html',
             controller: 'expensesCtrl'
           }
         }
       })
 
-      .state('tabsController.balance', {
+      .state('app.balance', {
         url: '/balance',
         views: {
-          'tab3': {
+          'tab-balance': {
             templateUrl: 'templates/balance.html',
             controller: 'balanceCtrl'
           }
         }
       })
 
-      .state('tabsController', {
-        url: '/page1',
-        templateUrl: 'templates/tabsController.html',
-        abstract: true
-      })
+      // .state('app.tabsController', {
+      //   url: '/page1',
+      //   views: {
+      //     'menuContent': {
+      //       templateUrl: 'templates/tabsController.html',
+      //       abstract: true
+      //     }
+      //   }
+      // })
 
-      .state('tabsController.newExpense', {
+      .state('app.newExpense', {
         url: '/newexpense',
         views: {
-          'tab2': {
+          'tab-expense': {
             templateUrl: 'templates/newExpense.html',
             controller: 'newExpenseCtrl'
           }
         }
       })
 
-    $urlRouterProvider.otherwise('/page1/expenses')
+    $urlRouterProvider.otherwise('/app/expenses')
   });

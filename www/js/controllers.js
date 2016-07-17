@@ -2,6 +2,25 @@
 
 angular.module('app.controllers', ['ui.router'])
 
+  .controller('AppCtrl', function ($scope, StorageService, $ionicPopup) {
+
+    $scope.deleteAllData = function () {
+
+      var confirmPopup = $ionicPopup.confirm({
+        title: 'Deletion warning!',
+        template: 'Are you sure you want to delete all data?'
+      });
+
+      confirmPopup.then(function (res) {
+        if (res) {
+          StorageService.removeAll();
+        } else {
+        }
+
+      });
+
+    };
+  })
 
   .controller('expensesCtrl', function ($scope, StorageService) {
     // var query = "SELECT * FROM persons";
@@ -52,12 +71,25 @@ angular.module('app.controllers', ['ui.router'])
 
   })
 
-  .controller('newExpenseCtrl', function ($scope, $state, StorageService) {
+  .controller('newExpenseCtrl', function ($scope, $state, StorageService, $ionicPopup) {
+
 
     $scope.addExpense = function (person, sum, description, currency) {
+
+      var showAlert = function (message) {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Missing data!',
+          template: 'Please fill in all the fields!'
+        });
+      };
+
+      if (person === undefined || sum === undefined || description === undefined || currency === undefined) {
+        showAlert();
+        return;
+      }
       var newExpense = { person: person, sum: sum, description: description, currency: currency };
       StorageService.add(newExpense);
-      $state.go('tabsController.expenses')
+      $state.go('app.expenses');
     };
   })
 
