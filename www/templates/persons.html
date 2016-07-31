@@ -1,0 +1,13 @@
+<ion-view title="Persons" class=" ">
+    <ion-content padding="true" class="has-header">
+        <div class=" button-bar ">
+            <a ui-sref="app.newPerson" class=" button button-positive  button-block icon-left ion-android-add-circle ">Add</a>
+            <button ng-click="deleteAllPersons()" class=" button button-negative button-block">Remove all</button>
+        </div>
+        <ion-list>
+            <ion-item ng-repeat="person in persons" class="item-avatar">
+                <h2>{{person}}</h2>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

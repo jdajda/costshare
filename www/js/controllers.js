@@ -13,7 +13,7 @@ angular.module('app.controllers', ['ui.router'])
 
       confirmPopup.then(function (res) {
         if (res) {
-          StorageService.removeAll();
+          StorageService.removeAllExpenses();
         } else {
         }
 
@@ -29,51 +29,58 @@ angular.module('app.controllers', ['ui.router'])
     // }, function (err) {
     //   console.error("aa: " + err.message);
     // });
-    $scope.expenses = StorageService.getAll();
+    $scope.expenses = StorageService.getAllExpenses();
 
     // $scope.expenses = [{ id: "1", person: "Aga", sum: "30", description: "opłata za autostradę", currency: "zł" },
     //   { id: "2", person: "Renia", sum: "50", description: "bramki", currency: "euro" }];
 
   })
 
+  .controller('personsCtrl', function ($scope, StorageService, $ionicPopup) {
+    $scope.persons = StorageService.getAllPersons();
+    $scope.deleteAllPersons = function () {
+
+      var confirmPopup = $ionicPopup.confirm({
+        title: 'Deletion warning!',
+        template: 'Are you sure you want to delete all persons? This will also clear all your expense data!'
+      });
+
+      confirmPopup.then(function (res) {
+        if (res) {
+          StorageService.removeAllPersons();
+          StorageService.removeAllExpenses();
+         } 
+      });
+    };
+  })
+
+  .controller('newPersonCtrl', function ($scope, $state, StorageService, $ionicPopup) {
+
+    $scope.addPerson = function (person) {
+
+      var showAlert = function (message) {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Missing data!',
+          template: 'Please fill the person name!'
+        });
+      };
+
+      if (person === undefined) {
+        showAlert();
+        return;
+      }
+      StorageService.addPerson(person);
+      $state.go('app.persons');
+    };
+  })
+
   .controller('balanceCtrl', function ($scope, StorageService) {
-    var balanceList = [];
-    var totalSum = 0;
-
-    var expenses = StorageService.getAll();
-    for (var i = 0; i < expenses.length; i++) {
-      var expense = expenses[i];
-      totalSum += parseInt(expense.sum);
-      if (balanceList[expense.person] === undefined) {
-        var person = { "person": expense.person, "balance": parseInt(expense.sum) };
-        balanceList[expense.person] = person;
-      } else {
-        balanceList[expense.person].balance += parseInt(expense.sum);
-      }
-    }
-
-    var balanceItemsCount = 0;
-    for (var balanceItem in balanceList) {
-      if (balanceList.hasOwnProperty(balanceItem)) {
-        ++balanceItemsCount;
-      }
-    }
-
-
-    var averageSum = totalSum / balanceItemsCount;
-    $scope.balanceList = [];
-    for (var balanceItem in balanceList) {
-      if (balanceList.hasOwnProperty(balanceItem)) {
-        balanceList[balanceItem].balance -= averageSum
-        $scope.balanceList.push(balanceList[balanceItem]);
-      }
-    }
-
+    $scope.balanceList = StorageService.getBalance();
   })
 
   .controller('newExpenseCtrl', function ($scope, $state, StorageService, $ionicPopup) {
 
-
+    $scope.availablePersons = StorageService.getAllPersons();
     $scope.addExpense = function (person, sum, description, currency) {
 
       var showAlert = function (message) {
@@ -88,7 +95,7 @@ angular.module('app.controllers', ['ui.router'])
         return;
       }
       var newExpense = { person: person, sum: sum, description: description, currency: currency };
-      StorageService.add(newExpense);
+      StorageService.addExpense(newExpense);
       $state.go('app.expenses');
     };
   })

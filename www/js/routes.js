@@ -32,22 +32,32 @@ angular.module('app.routes', [])
         }
       })
 
-      // .state('app.tabsController', {
-      //   url: '/page1',
-      //   views: {
-      //     'menuContent': {
-      //       templateUrl: 'templates/tabsController.html',
-      //       abstract: true
-      //     }
-      //   }
-      // })
-
       .state('app.newExpense', {
         url: '/newexpense',
         views: {
           'tab-expense': {
             templateUrl: 'templates/newExpense.html',
             controller: 'newExpenseCtrl'
+          }
+        }
+      })
+
+      .state('app.persons', {
+        url: '/persons',
+        views: {
+          'tab-expense': {
+            templateUrl: 'templates/persons.html',
+            controller: 'personsCtrl'
+          }
+        }
+      })
+
+      .state('app.newPerson', {
+        url: '/newperson',
+        views: {
+          'tab-expense': {
+            templateUrl: 'templates/newPerson.html',
+            controller: 'newPersonCtrl'
           }
         }
       })
