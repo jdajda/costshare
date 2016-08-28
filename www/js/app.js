@@ -2,27 +2,6 @@
 
 angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ngStorage', 'ngCordova'])
 
-  // .factory('StorageService', function ($localStorage) {
-  //   $localStorage = $localStorage.$default({
-  //     expenses: []
-  //   });
-
-  //   var _getAll = function () {
-  //     return $localStorage.expenses;
-  //   };
-  //   var _add = function (expense) {
-  //     $localStorage.expenses.push(expense);
-  //   }
-  //   var _remove = function (expense) {
-  //     $localStorage.expenses.splice($localStorage.expenses.indexOf(expense), 1);
-  //   }
-  //   return {
-  //     getAll: _getAll,
-  //     add: _add,
-  //     remove: _remove
-  //   };
-  // })
-
   .run(function ($ionicPlatform, $cordovaSQLite, $rootScope) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -35,29 +14,6 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
         // org.apache.cordova.statusbar required
         StatusBar.styleDefault();
       }
-
-      // if (window.cordova) {
-      //   $rootScope.db = $cordovaSQLite.openDB({ name: "expenses.db", location: 'default' }); //device
-      //   console.log("Android");
-      // } else{
-      // window.openDatabase = function(dbname, ignored1, ignored2, ignored3) {
-      //   return window.sqlitePlugin.openDatabase({name: dbname, location: 'default'});
-      // };
-      //   $rootScope.db = window.openDatabase("expenses.db", '1', 'expenses.db', 1024 * 1024 * 100); // browser
-      //   console.log("browser");
-      // }
-
-      // var query = "SELECT * FROM persons";
-      // $cordovaSQLite.execute($rootScope.db, query).then(function(res) {
-      //   console.log("insertId: " + res.insertId);
-      // }, function (err) {
-      //   console.error(err);
-      // });
-
-      //$rootScope.db = window.sqlitePlugin.openDatabase( {name: "expenses.db", createFromLocation: 1} );
-
-      // StorageService.add({ id: "1", person: "Aga", sum: "30", description: "opłata za autostradę", currency: "zł" });
-      // StorageService.add({ id: "2", person: "Renia", sum: "50", description: "bramki", currency: "euro" });
 
     });
 

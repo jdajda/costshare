@@ -52,8 +52,8 @@ angular.module('app.services', ['ngStorage'])
         // balance related functions  
         var _getTotalBalance = function () {
             return $localStorage.balanceTotal;
-        }   
-        
+        }
+
         var _getBalance = function () {
             return $localStorage.balance;
         };
@@ -64,14 +64,10 @@ angular.module('app.services', ['ngStorage'])
             $localStorage.balance.length = 0;
 
             var expenses = _getAllExpenses();
-            // check whether it is worth calcuating the balance    
-            // if (_getAllPersons().length < 2 || expenses.length==0) {
-            //     return;
-            // }
 
             // init the balance table     
             var balanceList = [];
-            var allPersons = _getAllPersons();       
+            var allPersons = _getAllPersons();
             for (var currentPerson in allPersons) {
                 var newPerson = { "person": allPersons[currentPerson], "balance": 0 };
                 balanceList[allPersons[currentPerson]] = newPerson;
@@ -83,22 +79,9 @@ angular.module('app.services', ['ngStorage'])
                 var expense = expenses[i];
                 totalSum += parseInt(expense.sum);
                 balanceList[expense.person].balance += parseInt(expense.sum);
-                // if (balanceList[expense.person] === undefined) {
-                //     var person = { "person": expense.person, "balance": parseInt(expense.sum) };
-                //     balanceList[expense.person] = person;
-                // } else {
-                //     balanceList[expense.person].balance += parseInt(expense.sum);
-                // }
             }
 
-            // var balanceItemsCount = 0;
-            // for (var balanceItem in balanceList) {
-            //     if (balanceList.hasOwnProperty(balanceItem)) {
-            //         ++balanceItemsCount;
-            //     }
-            // }
-
-            $localStorage.balanceTotal = totalSum;            
+            $localStorage.balanceTotal = totalSum;
             var averageSum = totalSum / _getAllPersons().length;
             for (var balanceItem in balanceList) {
                 if (balanceList.hasOwnProperty(balanceItem)) {

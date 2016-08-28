@@ -31,24 +31,10 @@ angular.module('app.controllers', ['ui.router'])
       $scope.personsListModal = modal;
     });
 
-    // $scope.addNewPerson = function (u) {
-    //   //$scope.contacts.push({ name: u.firstName + ' ' + u.lastName });
-    //   $scope.personsListModal.hide();
-    // };
-
   })
 
   .controller('expensesCtrl', function ($scope, StorageService) {
-    // var query = "SELECT * FROM persons";
-    // $cordovaSQLite.execute($scope.db, query).then(function (res) {
-    //   console.log("aaa: insertId: " + res.insertId);
-    // }, function (err) {
-    //   console.error("aa: " + err.message);
-    // });
     $scope.expenses = StorageService.getAllExpenses();
-
-    // $scope.expenses = [{ id: "1", person: "Aga", sum: "30", description: "opłata za autostradę", currency: "zł" },
-    //   { id: "2", person: "Renia", sum: "50", description: "bramki", currency: "euro" }];
 
   })
 
