@@ -1,28 +1,50 @@
 <ion-side-menus enable-menu-with-back-views="false" data-componentid="side-menu21">
     <ion-side-menu-content>
-        <ion-nav-bar class="bar-stable">
+        <ion-nav-bar class="bar-positive">
             <ion-nav-back-button></ion-nav-back-button>
             <ion-nav-buttons side="left">
                 <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
             </ion-nav-buttons>
         </ion-nav-bar>
-        <!--<ion-nav-view name='menuContent'></ion-nav-view>-->
-        <ion-tabs class="tabs-stable tabs-icon-top fade-in-not-out">
-        <ion-tab title="Expenses" icon="ion-ios-cart" href="#/app/expenses">
-            <ion-nav-view name="tab-expense"></ion-nav-view>
-        </ion-tab>
-        <ion-tab title="Balance" icon="ion-calculator" href="#/app/balance">
-            <ion-nav-view name="tab-balance"></ion-nav-view>
-        </ion-tab>
-    </ion-tabs>
+        <ion-nav-view name="mainContent"></ion-nav-view>
     </ion-side-menu-content>
-    <ion-side-menu side="left" id="side-menu21">
-        <ion-header-bar class="bar-stable">
+    <ion-side-menu name="menu-content" side="left" id="side-menu21">
+        <ion-header-bar class="bar-calm">
             <div class="title">Menu</div>
         </ion-header-bar>
-        <ion-content padding="false" class="side-menu-left has-header">
-            <button ng-click="deleteAllData()" class=" button button-positive button-block">Clear data</button>
-            <a ui-sref="app.persons" menu-close="" id="menu-button9" class=" button button-block " data-componentid="button9">Manage people</a>
+        <ion-content class="has-header mymenu">
+            <ion-list>
+                <a nav-clear menu-close class="item item-icon-left" href="#/app/expenses">
+                    <i class="icon ion-ios-cart"></i> Expenses
+                    <span class="badge badge-royal">{{expensesCount.length}}</span>
+                </a>
+                <a nav-clear menu-close class="item item-icon-left" href="#/app/balance">
+                    <i class="icon ion-calculator"></i> Balance
+                    <span class="badge">{{balanceTotal}} zł</span>
+                </a>
+                <div class="item item-divider">
+                    Settings
+                </div>
+                <a nav-clear menu-close class="item item-icon-left" href="#/app/persons">
+                    <i class="icon ion-person-stalker"></i> Persons
+                    <span class="badge badge-royal">{{personsCount.length}}</span>
+                </a>
+                <a nav-clear class="item item-icon-left" ng-disabled="true" style="color: #CCCCCC">
+                    <i class="icon ion-social-euro"></i>Currency rates</a>
+                <a nav-clear class="item item-icon-left" ng-click="deleteAllData()">
+                    <i class="icon ion-trash-a"></i><span style="color:red">Clear expenses</span></a>
+
+
+                <div class="item item-divider">
+                    Help and about
+                </div>
+                <a nav-clear menu-close class="item item-icon-left" href="#/app/about" ng-disabled="true" style="color: #CCCCCC">
+                    <i class="icon ion-archive"></i>Export</a>
+                <a nav-clear menu-close class="item item-icon-left" href="#/app/about" ng-disabled="true" style="color: #CCCCCC">
+                    <i class="icon ion-ios-information"></i>About</a>
+            </ion-list>
         </ion-content>
+
+        </ion-content>-->
     </ion-side-menu>
 </ion-side-menus>

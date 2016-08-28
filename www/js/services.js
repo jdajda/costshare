@@ -4,9 +4,11 @@ angular.module('app.services', ['ngStorage'])
         $localStorage = $localStorage.$default({
             expenses: [],
             balance: [],
-            persons: []
+            persons: [],
+            balanceTotal: 0,
         });
 
+        // expense related functions        
         var _getAllExpenses = function () {
             return $localStorage.expenses;
         };
@@ -23,11 +25,15 @@ angular.module('app.services', ['ngStorage'])
             _updateBalance();
         };
 
+        // persons related functions        
         var _getAllPersons = function () {
             return $localStorage.persons;
         };
-        var _addPerson = function (person) {
-            $localStorage.persons.push(person);
+        var _addPerson = function (personName) {
+            // var color ='#'+Math.random().toString(16).substr(2,6);
+            // var person = { 'name': personName, 'color': color };
+            // $localStorage.persons.push(personName);
+            $localStorage.persons.push(personName);
             _updateBalance();
         };
         var _removePerson = function (person) {
@@ -35,44 +41,65 @@ angular.module('app.services', ['ngStorage'])
             _updateBalance();
         };
         var _removeAllPersons = function () {
-            
             $localStorage.persons.length = 0;
             _updateBalance();
         };
+
+        var _containsPerson = function (person) {
+            return $localStorage.persons.indexOf(person) != -1;
+        }
+
+        // balance related functions  
+        var _getTotalBalance = function () {
+            return $localStorage.balanceTotal;
+        }   
         
         var _getBalance = function () {
             return $localStorage.balance;
         };
 
         var _updateBalance = function () {
-            var balanceList = [];
-            var totalSum = 0;
-
-            $localStorage.balance.length = 0;            
-            if (_getAllPersons().length < 2) {
-                return;
-            }
+            // reset balance
+            $localStorage.balanceTotal = 0;
+            $localStorage.balance.length = 0;
 
             var expenses = _getAllExpenses();
+            // check whether it is worth calcuating the balance    
+            // if (_getAllPersons().length < 2 || expenses.length==0) {
+            //     return;
+            // }
+
+            // init the balance table     
+            var balanceList = [];
+            var allPersons = _getAllPersons();       
+            for (var currentPerson in allPersons) {
+                var newPerson = { "person": allPersons[currentPerson], "balance": 0 };
+                balanceList[allPersons[currentPerson]] = newPerson;
+            }
+
+            var totalSum = 0;
+            // aggregiate the expenses
             for (var i = 0; i < expenses.length; i++) {
                 var expense = expenses[i];
                 totalSum += parseInt(expense.sum);
-                if (balanceList[expense.person] === undefined) {
-                    var person = { "person": expense.person, "balance": parseInt(expense.sum) };
-                    balanceList[expense.person] = person;
-                } else {
-                    balanceList[expense.person].balance += parseInt(expense.sum);
-                }
+                balanceList[expense.person].balance += parseInt(expense.sum);
+                // if (balanceList[expense.person] === undefined) {
+                //     var person = { "person": expense.person, "balance": parseInt(expense.sum) };
+                //     balanceList[expense.person] = person;
+                // } else {
+                //     balanceList[expense.person].balance += parseInt(expense.sum);
+                // }
             }
 
-            var balanceItemsCount = 0;
-            for (var balanceItem in balanceList) {
-                if (balanceList.hasOwnProperty(balanceItem)) {
-                    ++balanceItemsCount;
-                }
-            }
+            // var balanceItemsCount = 0;
+            // for (var balanceItem in balanceList) {
+            //     if (balanceList.hasOwnProperty(balanceItem)) {
+            //         ++balanceItemsCount;
+            //     }
+            // }
 
-            var averageSum = totalSum / balanceItemsCount;
+            $localStorage.balanceTotal = totalSum;            
+            var averageSum = totalSum / _getAllPersons().length;
             for (var balanceItem in balanceList) {
                 if (balanceList.hasOwnProperty(balanceItem)) {
                     balanceList[balanceItem].balance -= averageSum
@@ -82,15 +109,18 @@ angular.module('app.services', ['ngStorage'])
 
         };
 
+        // building service facade        
         return {
             getAllExpenses: _getAllExpenses,
             addExpense: _addExpense,
             removeExpense: _removeExpense,
             removeAllExpenses: _removeAllExpenses,
             getBalance: _getBalance,
+            getTotalBalance: _getTotalBalance,
             addPerson: _addPerson,
             removePerson: _removePerson,
             removeAllPersons: _removeAllPersons,
-            getAllPersons: _getAllPersons
+            getAllPersons: _getAllPersons,
+            containsPerson: _containsPerson
         };
     });

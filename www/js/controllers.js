@@ -2,13 +2,17 @@
 
 angular.module('app.controllers', ['ui.router'])
 
-  .controller('AppCtrl', function ($scope, StorageService, $ionicPopup) {
+  .controller('AppCtrl', function ($scope, StorageService, $ionicPopup, $ionicModal) {
+
+    $scope.personsCount = StorageService.getAllPersons();
+    $scope.expensesCount = StorageService.getAllExpenses();
+    $scope.balanceTotal = StorageService.getTotalBalance();
 
     $scope.deleteAllData = function () {
 
       var confirmPopup = $ionicPopup.confirm({
         title: 'Deletion warning!',
-        template: 'Are you sure you want to delete all data?'
+        template: 'Are you sure you want to delete all expenses?'
       });
 
       confirmPopup.then(function (res) {
@@ -20,6 +24,18 @@ angular.module('app.controllers', ['ui.router'])
       });
 
     };
+
+    $ionicModal.fromTemplateUrl('templates/personsListModal.html', {
+      scope: $scope
+    }).then(function (modal) {
+      $scope.personsListModal = modal;
+    });
+
+    // $scope.addNewPerson = function (u) {
+    //   //$scope.contacts.push({ name: u.firstName + ' ' + u.lastName });
+    //   $scope.personsListModal.hide();
+    // };
+
   })
 
   .controller('expensesCtrl', function ($scope, StorageService) {
@@ -49,7 +65,7 @@ angular.module('app.controllers', ['ui.router'])
         if (res) {
           StorageService.removeAllPersons();
           StorageService.removeAllExpenses();
-         } 
+        }
       });
     };
   })
@@ -58,17 +74,30 @@ angular.module('app.controllers', ['ui.router'])
 
     $scope.addPerson = function (person) {
 
-      var showAlert = function (message) {
+      var showMissingDataAlert = function (message) {
         var alertPopup = $ionicPopup.alert({
           title: 'Missing data!',
-          template: 'Please fill the person name!'
+          template: 'Please fill the person name.'
+        });
+      };
+
+      var showPersonsExistsAlert = function (message) {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Person exists!',
+          template: 'Please enter different name.'
         });
       };
 
       if (person === undefined) {
-        showAlert();
+        showMissingDataAlert();
         return;
       }
+
+      if (StorageService.containsPerson(person)) {
+        showPersonsExistsAlert();
+        return;
+      }
+
       StorageService.addPerson(person);
       $state.go('app.persons');
     };

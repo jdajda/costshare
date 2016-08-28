@@ -15,7 +15,7 @@ angular.module('app.routes', [])
       .state('app.expenses', {
         url: '/expenses',
         views: {
-          'tab-expense': {
+          'mainContent': {
             templateUrl: 'templates/expenses.html',
             controller: 'expensesCtrl'
           }
@@ -25,7 +25,7 @@ angular.module('app.routes', [])
       .state('app.balance', {
         url: '/balance',
         views: {
-          'tab-balance': {
+          'mainContent': {
             templateUrl: 'templates/balance.html',
             controller: 'balanceCtrl'
           }
@@ -35,7 +35,7 @@ angular.module('app.routes', [])
       .state('app.newExpense', {
         url: '/newexpense',
         views: {
-          'tab-expense': {
+          'mainContent': {
             templateUrl: 'templates/newExpense.html',
             controller: 'newExpenseCtrl'
           }
@@ -45,7 +45,7 @@ angular.module('app.routes', [])
       .state('app.persons', {
         url: '/persons',
         views: {
-          'tab-expense': {
+          'mainContent': {
             templateUrl: 'templates/persons.html',
             controller: 'personsCtrl'
           }
@@ -55,7 +55,7 @@ angular.module('app.routes', [])
       .state('app.newPerson', {
         url: '/newperson',
         views: {
-          'tab-expense': {
+          'mainContent': {
             templateUrl: 'templates/newPerson.html',
             controller: 'newPersonCtrl'
           }
