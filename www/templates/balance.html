@@ -1,10 +1,33 @@
-<ion-view title="Balance" id="page4" class=" ">
+<ion-view title='Balance' id="page4" class=" ">
+
+<!--<div class="tabs tabs-icon-top">
+  <a class="tab-item">
+    <i class="icon ion-podium"></i>
+    Balance list
+  </a>
+  <a class="tab-item" ui-sref="app.persons">
+    <i class="icon ion-pie-graph"></i>
+    Pie chart
+  </a>
+</div>-->
+
     <ion-content padding="true" class="has-header">
         <ion-list id="balance-list3" class=" ">
-            <ion-item ng-repeat="balanceItem in balanceList" class="item-avatar  " id="balance-list-item9" href="tel:">
-                <h2>{{balanceItem.person}}</h2>
-                <p>{{balanceItem.balance}}</p>
-            </ion-item>
+            <a class="item"  ng-repeat="balanceItem in balanceList" href="#">
+                <div class="row">
+                    <div class="col col-10">
+                        <div class="circle" style="background:{{getPersonColor(balanceItem.person)}}">{{balanceItem.person[0]}}</div>
+                    </div>
+                    <div class="col col-40 avatar-label">
+                        {{balanceItem.person}}
+                    </div>
+                    <div class="col col-40 balance-label">{{balanceItem.balance}} zł
+                        <div class="gradient-{{balanceItem.balance>=0 ? 'green' : 'red'}}" style="width:{{100*(balanceItem.balanceNorm)}}%; height: 10px; border-radius: 15px;"></div>
+                    </div>
+                </div>
+            </a>
         </ion-list>
+
+
     </ion-content>
 </ion-view>

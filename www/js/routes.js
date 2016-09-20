@@ -62,5 +62,15 @@ angular.module('app.routes', [])
         }
       })
 
+      .state('app.rates', {
+        url: '/rates',
+        views: {
+          'mainContent': {
+            templateUrl: 'templates/rates.html',
+            controller: 'ratesCtrl'
+          }
+        }
+      })
+
     $urlRouterProvider.otherwise('/app/expenses')
   });

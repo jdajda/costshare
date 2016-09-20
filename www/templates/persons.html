@@ -1,13 +1,20 @@
-<ion-view title="Persons" class=" ">
+<ion-view title='Persons' class=" ">
     <ion-content padding="true" class="has-header">
         <div class=" button-bar ">
             <a ui-sref="app.newPerson" class=" button button-positive  button-block icon-left ion-android-add-circle ">Add</a>
             <a ng-click="deleteAllPersons()" class=" button button-negative  button-block icon-left ion-trash-a ">Delete all persons</a>
         </div>
         <ion-list>
-            <ion-item ng-repeat="person in persons" class="item-avatar">
-                <h2>{{person}}</h2>
-            </ion-item>
+            <a class="item" ng-repeat="person in persons" href="#">
+                <div class="row">
+                    <div class="col col-10">
+                        <div class="circle" style="background:{{getPersonColor(person.name)}}">{{person.name[0]}}</div>
+                    </div>
+                    <div class="col col-50 avatar-label">
+                        {{person.name}}
+                    </div>
+                </div>
+            </a>
         </ion-list>
     </ion-content>
 </ion-view>
