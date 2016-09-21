@@ -6,11 +6,13 @@ angular.module('app.services', ['ngStorage'])
             balance: [],
             persons: [],
             rates: {
+                PLN: { value: 1, flag: "pl" },
                 EUR: { value: 4.3651, flag: "europeanunion" },
                 USD: { value: 3.9091, flag: "us" },
                 CHF: { value: 3.9914, flag: "ch" },
                 GBP: { value: 5.2021, flag: "gb" }
             },
+            currentCurrency: "PLN",
             balanceTotal: 0,
         });
 
@@ -81,6 +83,7 @@ angular.module('app.services', ['ngStorage'])
             }
 
             var expenses = _getAllExpenses();
+            var rates = _getRates();
 
             // init the balance table     
             var balanceList = [];
@@ -96,8 +99,9 @@ angular.module('app.services', ['ngStorage'])
             // aggregiate the expenses
             for (var i = 0; i < expenses.length; i++) {
                 var expense = expenses[i];
-                totalSum += parseInt(expense.sum);
-                balanceList[expense.person].balance += parseInt(expense.sum);
+                var calculatedSum = rates[expense.currency].value * parseInt(expense.sum);
+                totalSum += calculatedSum;
+                balanceList[expense.person].balance += calculatedSum;
             }
 
             $localStorage.balanceTotal = totalSum;
@@ -120,7 +124,11 @@ angular.module('app.services', ['ngStorage'])
         }
 
         var _setRate = function (currency, value) {
-            $localStorage.rates[currency] = value;
+            $localStorage.rates[currency].value = value;
+        }
+
+        var _getCurrentCurrency = function () {
+            return $localStorage.currentCurrency;
         }
 
 
@@ -139,6 +147,7 @@ angular.module('app.services', ['ngStorage'])
             containsPerson: _containsPerson,
             getPersonColor: _getPersonColor,
             getRates: _getRates,
-            setRate: _setRate
+            setRate: _setRate,
+            getCurrentCurrency: _getCurrentCurrency
         };
     });

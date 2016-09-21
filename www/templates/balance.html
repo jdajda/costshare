@@ -21,7 +21,7 @@
                     <div class="col col-40 avatar-label">
                         {{balanceItem.person}}
                     </div>
-                    <div class="col col-40 balance-label">{{balanceItem.balance}} zł
+                    <div class="col col-40 balance-label">{{(balanceItem.balance).toFixed(2)}} {{currentCurrency}}
                         <div class="gradient-{{balanceItem.balance>=0 ? 'green' : 'red'}}" style="width:{{100*(balanceItem.balanceNorm)}}%; height: 10px; border-radius: 15px;"></div>
                     </div>
                 </div>

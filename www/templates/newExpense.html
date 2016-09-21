@@ -18,8 +18,7 @@
             <label class="item item-select ">
                 <span class="input-label">Currency</span>
                 <select ng-model="currency">
-                    <option>Złoty</option>
-                    <option>Euro</option>
+                    <option ng-repeat="(rateName, rate) in rates">{{rateName}}</option>
                 </select>
             </label>
         </form>

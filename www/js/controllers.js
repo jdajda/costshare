@@ -6,7 +6,8 @@ angular.module('app.controllers', ['ui.router'])
 
     $scope.persons = StorageService.getAllPersons();
     $scope.expenses = StorageService.getAllExpenses();
-   
+    $scope.currentCurrency = StorageService.getCurrentCurrency(); 
+
     $scope.sservice = StorageService;
     $scope.$watch('sservice.getTotalBalance()', function (newVal) {
       $scope.balanceTotal = newVal;
@@ -25,40 +26,7 @@ angular.module('app.controllers', ['ui.router'])
         } else {
         }
       });
-    };``
-
-    // $scope.rate = StorageService.getRate();    
-    
-    // $scope.showCurrencyRatesPopup = function () {
-      
-    //   // An elaborate, custom popup
-    //   var myPopup = $ionicPopup.show({
-    //     template: '<input type="number" min="0.01" ng-model="rate" />',
-    //     title: 'Enter euro-złoty rate',
-    //     scope: null,
-    //     buttons: [
-    //       { text: 'Cancel' },
-    //       {
-    //         text: '<b>Save</b>',
-    //         type: 'button-positive',
-    //         onTap: function (e) {
-    //           if (!scope.rate) {
-    //             //don't allow the user to close unless he enters rate
-    //             e.preventDefault();
-    //           } else {
-    //             return scope.rate;
-    //           }
-    //         }
-    //       }
-    //     ]
-    //   });
-
-    //   myPopup.then(function (res) {
-    //     $scope.rate = res;
-    //     StorageService.setRate(res);
-    //   });
-
-    // };
+    }; 
 
   })
 
@@ -122,6 +90,7 @@ angular.module('app.controllers', ['ui.router'])
   .controller('balanceCtrl', function ($scope, StorageService) {
     $scope.getPersonColor = StorageService.getPersonColor;
     $scope.balanceList = StorageService.getBalance();
+    $scope.currentCurrency = StorageService.getCurrentCurrency();
     $scope.sservice = StorageService;
     $scope.$watch('sservice.getBalance()', function (newVal) {
       $scope.balanceList = newVal;
@@ -139,7 +108,7 @@ angular.module('app.controllers', ['ui.router'])
   })
 
   .controller('newExpenseCtrl', function ($scope, $state, StorageService, $ionicPopup) {
-
+    $scope.rates = StorageService.getRates();
     $scope.availablePersons = StorageService.getAllPersons();
     $scope.addExpense = function (person, sum, description, currency) {
 
@@ -150,7 +119,7 @@ angular.module('app.controllers', ['ui.router'])
         });
       };
 
-      if (person === undefined || sum === undefined || description === undefined || currency === undefined) {
+      if (person === undefined || sum === undefined || sum === null || description === undefined || currency === undefined) {
         showAlert();
         return;
       }
@@ -160,7 +129,48 @@ angular.module('app.controllers', ['ui.router'])
     };
   })
 
-  .controller('ratesCtrl', function ($scope, StorageService) {
+  .controller('ratesCtrl', function ($scope, StorageService, $ionicPopup) {
     $scope.rates = StorageService.getRates();
+    $scope.currentCurrency = StorageService.getCurrentCurrency();
+    // Triggered on a button click, or some other target
+    $scope.showPopup = function (rateName, rateFlag) {
+      $scope.data = {};
+
+      // An elaborate, custom popup
+      var myPopup = $ionicPopup.show({
+        template: '<input type="number" ng-model="data.newRate">',
+        title: 'Enter new rate for ' + rateName + " <img src='img/flags/" + rateFlag + ".gif' />",
+        subTitle: '1 ' + rateName + " = ? " + StorageService.getCurrentCurrency(),
+        scope: $scope,
+        buttons: [
+          { text: 'Cancel' },
+          {
+            text: '<b>Save</b>',
+            type: 'button-positive',
+            onTap: function (e) {
+              if (!$scope.data.newRate) {
+                //don't allow the user to close unless he enters new rate
+                e.preventDefault();
+              } else {
+                return $scope.data.newRate;
+              }
+            }
+          }
+        ]
+      });
+
+      function isInt(n) {
+        return n != "" && !isNaN(n) && Math.round(n) == n;
+      }
+      function isFloat(n) {
+        return n != "" && !isNaN(n) && Math.round(n) != n;
+      }
+
+      myPopup.then(function (res) {
+        if (isInt(res) || isFloat(res)) {
+          StorageService.setRate(rateName, res);
+        }
+      });
+    };
   })
 

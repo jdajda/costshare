@@ -1,6 +1,6 @@
 <ion-view title='Expenses' id="expenses" class=" ">
     <ion-content padding="true" class="has-header">
-        <div class=" button-bar ">
+        <div class="button-bar">
             <a ui-sref="app.newExpense" class=" button button-positive  button-block icon-left ion-android-add-circle ">Add</a>
             <button ng-click="personsListModal.show()" class=" button button-stable  button-block icon-left ion-ios-list-outline ">Sort</button>
         </div>
@@ -10,12 +10,14 @@
                         <div class="col col-10">
                             <div class="circle" style="background:{{getPersonColor(expense.person)}}">{{expense.person[0]}}</div>
                         </div>
-                        <div class="col col-60 avatar-label">
+                        <div class="col col-50 avatar-label">
                             {{expense.person}}
                             <p style="font-size: 11px; width: 100%">{{expense.description}}</p>
                         </div>
-                        <div class="col col-20 balance-label">
+                        <div class="col col-30 balance-label">
                             {{expense.sum}} {{expense.currency}}
+                        </div>
+                        <div class="col col-10">
                         </div>
                     </div>
                 </a>

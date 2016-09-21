@@ -1,7 +1,7 @@
 <ion-view title="Rates" class=" ">
     <ion-content padding="true" class="has-header">
         <ion-list>
-            <a class="item" ng-repeat="(rateName, rate) in rates" href="#">
+            <a class="item" ng-repeat="(rateName, rate) in rates" ng-if="rateName!=currentCurrency" ng-click="showPopup(rateName, rate.flag)">
                 <div class="row">
                     <div class="col col-10">
                         <img src="img/flags/{{rate.flag}}.gif" />
@@ -10,7 +10,7 @@
                         {{rateName}}
                     </div>
                     <div class="col col-50 avatar-label">
-                        {{rate.value}}
+                        {{rate.value}} {{currentCurrency}}
                     </div>
                 </div>
             </a>
