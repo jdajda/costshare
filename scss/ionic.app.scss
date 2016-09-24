@@ -79,9 +79,13 @@ ion-list.manual-list-fullwidth div.list > .item,
 }
 
 .gradient-red {
- background: #ff670f; /* Old browsers */
+    background: #ff670f; /* Old browsers */
 background: -moz-linear-gradient(top, #ff670f 0%, #ff670f 100%); /* FF3.6-15 */
 background: -webkit-linear-gradient(top, #ff670f 0%,#ff670f 100%); /* Chrome10-25,Safari5.1-6 */
 background: linear-gradient(to bottom, #ff670f 0%,#ff670f 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff670f', endColorstr='#ff670f',GradientType=0 ); /* IE6-9 */
+}
+
+.disabled-menu-item {
+    color: #cccccc;
 }

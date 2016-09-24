@@ -1,17 +1,28 @@
 "use strict";
 
-angular.module('app.controllers', ['ui.router'])
+angular.module('app.controllers', ['ui.router', 'ngSanitize', 'ngCsv'])
 
   .controller('AppCtrl', function ($scope, StorageService, $ionicPopup) {
 
     $scope.persons = StorageService.getAllPersons();
     $scope.expenses = StorageService.getAllExpenses();
-    $scope.currentCurrency = StorageService.getCurrentCurrency(); 
+    $scope.currentCurrency = StorageService.getCurrentCurrency();
 
     $scope.sservice = StorageService;
     $scope.$watch('sservice.getTotalBalance()', function (newVal) {
       $scope.balanceTotal = newVal;
     });
+
+    $scope.getExpenses = function () {
+      return $scope.expenses;
+    }
+
+    $scope.showAboutDialog = function () {
+      var alertPopup = $ionicPopup.alert({
+        title: 'CostShare',
+        templateUrl: 'templates/about.html'
+      });
+    };
 
     $scope.deleteAllData = function () {
 
@@ -26,7 +37,7 @@ angular.module('app.controllers', ['ui.router'])
         } else {
         }
       });
-    }; 
+    };
 
   })
 

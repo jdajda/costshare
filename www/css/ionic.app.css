@@ -78,3 +78,6 @@ ion-list.manual-list-fullwidth div.list > .item,
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff670f', endColorstr='#ff670f',GradientType=0 );
   /* IE6-9 */ }
+
+.disabled-menu-item {
+  color: #cccccc; }

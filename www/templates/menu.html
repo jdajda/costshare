@@ -36,17 +36,22 @@
                 <a nav-clear class="item item-icon-left" ng-click="deleteAllData()">
                     <i class="icon ion-trash-a"></i><span style="color:red">Clear expenses</span></a>
 
+                <!-- Export menu item -->
+                <a ng-if="expenses.length==0" ng-disabled="true" class="item item-icon-left">
+                    <i class="icon ion-archive disabled-menu-item"></i>
+                    <span class="disabled-menu-item">Export</span>
+                </a>
+                <a nav-clear ng-if="expenses.length>0" class="item item-icon-left" ng-csv="getExpenses()" csv-header="['Person', 'Sum', 'Desc', 'Currency']"
+                    filename="expenses.csv">
+                    <i class="icon ion-archive"></i>Export
+                </a>
 
-                <div class="item item-divider">
-                    Help and about
-                </div>
-                <a nav-clear class="item item-icon-left" ng-disabled="true" style="color: #CCCCCC">
-                    <i class="icon ion-archive"></i>Export</a>
-                <a nav-clear class="item item-icon-left" ng-disabled="true" style="color: #CCCCCC">
+                <!-- About menu item -->
+                <a nav-clear class="item item-icon-left" ng-click="showAboutDialog()">
                     <i class="icon ion-ios-information"></i>About</a>
             </ion-list>
         </ion-content>
 
-        </ion-content>-->
+        </ion-content>
     </ion-side-menu>
 </ion-side-menus>
