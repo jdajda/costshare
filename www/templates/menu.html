@@ -15,26 +15,26 @@
         <ion-content class="has-header mymenu">
             <ion-list>
                 <a nav-clear menu-close class="item item-icon-left" href="#/app/expenses">
-                    <i class="icon ion-ios-cart"></i> Expenses
+                    <i class="icon ion-ios-cart menu-icon"></i> Expenses
                     <span class="badge badge-royal">{{expenses.length}}</span>
                 </a>
                 <a nav-clear menu-close class="item item-icon-left" href="#/app/balance">
-                    <i class="icon ion-calculator"></i> Balance
+                    <i class="icon ion-calculator menu-icon"></i> Balance
                     <span class="badge">{{balanceTotal.toFixed(2)}} {{currentCurrency}}</span>
                 </a>
                 <div class="item item-divider">
                     Settings
                 </div>
                 <a nav-clear menu-close class="item item-icon-left" href="#/app/persons">
-                    <i class="icon ion-person-stalker"></i> Persons
+                    <i class="icon ion-person-stalker menu-icon"></i> Persons
                     <span class="badge badge-royal">{{persons.length}}</span>
                 </a>
                 <!--<a nav-clear class="item item-icon-left" ng-disabled="true" style="color: #CCCCCC">-->
                 <a nav-clear menu-close class="item item-icon-left" href="#/app/rates">
-                    <i class="icon ion-cash"></i> Currency rates
+                    <i class="icon ion-cash menu-icon"></i> Currency rates
                 </a>
                 <a nav-clear class="item item-icon-left" ng-click="deleteAllData()">
-                    <i class="icon ion-trash-a"></i><span style="color:red">Clear expenses</span></a>
+                    <i class="icon ion-trash-a menu-icon"></i><span style="color:red">Clear expenses</span></a>
 
                 <!-- Export menu item -->
                 <a ng-if="expenses.length==0" ng-disabled="true" class="item item-icon-left">
@@ -43,12 +43,12 @@
                 </a>
                 <a nav-clear ng-if="expenses.length>0" class="item item-icon-left" ng-csv="getExpenses()" csv-header="['Person', 'Sum', 'Desc', 'Currency']"
                     filename="expenses.csv">
-                    <i class="icon ion-archive"></i>Export
+                    <i class="icon ion-archive menu-icon"></i>Export
                 </a>
 
                 <!-- About menu item -->
                 <a nav-clear class="item item-icon-left" ng-click="showAboutDialog()">
-                    <i class="icon ion-ios-information"></i>About</a>
+                    <i class="icon ion-ios-information menu-icon"></i>About</a>
             </ion-list>
         </ion-content>
 

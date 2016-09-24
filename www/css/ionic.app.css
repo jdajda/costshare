@@ -81,3 +81,6 @@ ion-list.manual-list-fullwidth div.list > .item,
 
 .disabled-menu-item {
   color: #cccccc; }
+
+.menu-icon {
+  color: #999; }
